@@ -1,0 +1,24 @@
+.Square-button{
+    width: 33.33%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-right: 1px rgb(100, 0, 194) solid;
+    border-top: 1px  rgb(100, 0, 194) solid;
+    transition: 0.5s;
+}
+.Square-button:hover{
+    background-color: #e5d9ff;
+}
+.Square-button:active{
+    background-color: #4a2a8f34;
+    /* transition: 1s; */
+}
+.Square-button img{
+    width: 70%;
+    height: 70%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
