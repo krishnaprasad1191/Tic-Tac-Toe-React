@@ -5,7 +5,7 @@ class Move extends Component {
     render() {
         return (
             <div className='Move-button' onClick={() => this.props.onClick(this.props.value)}>
-                <p>{"Move #"+(this.props.value + 1)}</p>
+                <p>{this.props.value ? "Move #"+(this.props.value) : "Go to start"}</p>
             </div>
         );
     }

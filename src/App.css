@@ -39,6 +39,7 @@
   justify-content: center;
   align-items: center;
   animation: bg 2.5s alternate infinite linear;
+  position: relative;
 }
 @keyframes bg{
   0% {

@@ -4,7 +4,6 @@ import cross from '../Vectors/cross.svg';
 import circle from '../Vectors/circle.svg';
 import nil from '../Vectors/null.png';
 
-import Ripples from 'react-ripples';
 
 class Square extends Component {
     symbol(){
@@ -18,11 +17,10 @@ class Square extends Component {
     render() {
         return (
             <div className='Square-button' onClick={() => this.props.onClick()}>
-                {/* {this.props.value} */}
                <img src= {this.symbol()} alt=""/>
             </div>
         );
     }
-}
+}   
 
 export default Square;

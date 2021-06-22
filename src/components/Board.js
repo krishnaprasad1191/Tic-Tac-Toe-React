@@ -25,9 +25,8 @@ class Board extends Component {
             [2, 4, 6],
         ];
         
-        //console.log(squaresCopy);
         for(let i=0; i<=7; i++){
-            if(squaresCopy[win[i][0]]){ //console.log(i+'-'+squaresCopy[win[i][0]]+squaresCopy[win[i][1]]+squaresCopy[win[i][2]])             
+            if(squaresCopy[win[i][0]]){              
                 if((squaresCopy[win[i][0]] === squaresCopy[win[i][1]]) && (squaresCopy[win[i][1]] === squaresCopy[win[i][2]])){
                     this.props.state.gameOver = true;
                     return ("Player '"+squaresCopy[win[i][0]]+"' is the Winner!");
@@ -41,7 +40,6 @@ class Board extends Component {
         
     }
     handleClick(i){
-        //alert("click is handled!");
         const squaresCopy = this.props.state.squares.slice();
         if(!this.props.state.gameOver && !squaresCopy[i-1]){
             this.props.state.filled++;
@@ -50,7 +48,7 @@ class Board extends Component {
                 let x = this.calculateWinner(squaresCopy);
                 if(x) 
                     this.props.status(x);
-                else 
+                else  
                     this.props.status("Player 'O' is next");
             }
             else{
@@ -61,15 +59,10 @@ class Board extends Component {
                 else 
                     this.props.status("Player 'X' is next");
             }
-            
-            // this.setState({
-            //     squares: squaresCopy,
-            //     XisNext: !this.props.state.XisNext
-            //  });
+        
             
             this.props.state.squares = squaresCopy;
             this.props.state.XisNext = !this.props.state.XisNext;
-
             this.props.changeHistory(squaresCopy,this.props.state.XisNext,this.props.state.gameOver,this.props.state.filled, this.props.state.status);
 
         }
