@@ -18,27 +18,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Zip the Files
-        run: zip -r Tic-Tac-Toe.zip ./*
-
-      - name: Upload the Zip file in the VM
+      - name: Upload build folder to VM
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{secrets.DEV_HOST}}
-          username: ${{secrets.USER}}
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          source: "Tic-Tac-Toe.zip"
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "build/"
           target: "/var/www/app/"
-
-      - name: Deploy on VM
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{secrets.DEV_HOST}}
-          username: ${{secrets.USER}}
-          key: ${{secrets.SSH_PRIVATE_KEY}}     
-          script: |
-            cd /var/www/app/
-            unzip -o Tic-Tac-Toe.zip
-            npm install --production         
-            pm2 restart tictactoe || pm2 start server.js --name tictactoe
-            pm2 save
