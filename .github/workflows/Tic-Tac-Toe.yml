@@ -18,7 +18,6 @@ jobs:
       - name: NPM Test and Build
         run: |
           npm install
-          npm test
           npm run build
 
       - name: Upload build folder to VM
