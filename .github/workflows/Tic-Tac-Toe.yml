@@ -19,7 +19,7 @@ jobs:
         run: |
           npm install
           npm run build
-          
+
       - name: Clean old build
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -35,8 +35,6 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo rm -rf /var/www/app/*
           source: "build/*"
           target: "/var/www/app/"
 
