@@ -3,8 +3,8 @@ name: Building Tic-Tac-Toe
 on:
   push:
     branches: ['main']
-    path: 
-      - .github/wokflows/*
+    paths: 
+      - .github/workflows/*
 
 jobs:
   build:
@@ -37,8 +37,8 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "buildv2/*"
-          target: "/var/www/app/"
+          source: "build/*"
+          target: "/var/www/app/release_${{ github.run_number }}"
 #appleboy/ssh-action = log into your server and run commands there
       - name: Reload Nginx
         uses: appleboy/ssh-action@v0.1.7
