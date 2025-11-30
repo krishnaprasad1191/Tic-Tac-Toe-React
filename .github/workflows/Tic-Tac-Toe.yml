@@ -26,3 +26,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "build/"
           target: "/var/www/app/"
+          
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo nginx -t
+            sudo systemctl reload nginx
