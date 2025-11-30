@@ -15,7 +15,7 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - name: NPM Test and Build
+      - name: NPM Install and Build
         run: |
           npm install
           npm run build
@@ -26,7 +26,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "build/"
+          source: "build/*"
           target: "/var/www/app/"
 
       - name: Reload Nginx
