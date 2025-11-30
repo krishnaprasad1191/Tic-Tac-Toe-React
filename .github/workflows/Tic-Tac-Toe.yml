@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "buildv2/*"
+          source: "buildv3/*"
           target: "/var/www/app/"
 #appleboy/ssh-action = log into your server and run commands there
       - name: Reload Nginx
