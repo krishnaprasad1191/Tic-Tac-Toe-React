@@ -3,6 +3,8 @@ name: Building Tic-Tac-Toe
 on:
   push:
     branches: ['main']
+    path: 
+      - .github/wokflows/*
 
 jobs:
   build:
@@ -20,14 +22,14 @@ jobs:
           npm install
           npm run build
 
-      - name: Clean old build
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.DEV_HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo rm -rf /var/www/app/*
+      # - name: Clean old build
+      #   uses: appleboy/ssh-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.DEV_HOST }}
+      #     username: ${{ secrets.USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       sudo rm -rf /var/www/app/*
 #appleboy/scp-action = copy files from GitHub Actions runner → your server
       - name: Upload build folder to VM
         uses: appleboy/scp-action@v0.1.7
@@ -35,7 +37,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "buildv3/*"
+          source: "buildv2/*"
           target: "/var/www/app/"
 #appleboy/ssh-action = log into your server and run commands there
       - name: Reload Nginx
