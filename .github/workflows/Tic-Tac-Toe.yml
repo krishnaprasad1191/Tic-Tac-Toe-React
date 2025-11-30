@@ -1,0 +1,16 @@
+name: Building Tic-Tac-Toe
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - name: Install Node
+      uses: actions/setup-node@v3
+    - name: Install Dependencies
+      run: npm install 
+    - name: Build
+      run: npm run build
