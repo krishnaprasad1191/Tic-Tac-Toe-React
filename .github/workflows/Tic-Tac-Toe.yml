@@ -5,12 +5,40 @@ on:
     branches: ['main']
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - name: Install Node
-      uses: actions/setup-node@v3
-    - name: Install Dependencies
-      run: npm install 
-    - name: Build
-      run: npm run build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: npm install 
+      - name: Build
+        run: npm run build
+
+      - name: Zip the Files
+        run: zip -r Tic-Tac-Toe.zip ./*
+
+      - name: Upload the Zip file in the VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{secrets.DEV_HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          source: "Tic-Tac-Toe.zip"
+          target: "/var/www/app/"
+
+      - name: Deploy on VM
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{secrets.DEV_HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}     
+          script: |
+            cd /var/www/app/
+            unzip -o Tic-Tac-Toe.zip
+            npm install --production         
+            pm2 restart tictactoe || pm2 start server.js --name tictactoe
+            pm2 save
