@@ -19,6 +19,15 @@ jobs:
         run: |
           npm install
           npm run build
+          
+      - name: Clean old build
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo rm -rf /var/www/app/*
 
       - name: Upload build folder to VM
         uses: appleboy/scp-action@v0.1.7
@@ -26,6 +35,8 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo rm -rf /var/www/app/*
           source: "build/*"
           target: "/var/www/app/"
 
